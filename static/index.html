@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/unslider.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        $(function () {
+            let url = 'http://127.0.0.1:8000/home/page/';
+            let img_url = 'http://127.0.0.1:8000/static';
+            $.get(url, function (result) {
+                if (result.static === 200 && result.data.length > 0) {
+                    let $ul = $('#out_shop').mouseout(function () {
+                        $('#init_shop').toggle()
+                    });
+                    for (let obj of result.data) {
+                        $('<li>').mouseover(function () {
+                            let $uls = $('#init_shop').empty().toggle();
+                            for (let obj1 of obj.page) {
+                                $('<li>').append($('<a>').text(obj1.name)).appendTo($uls);
+                            }
+
+                        })
+                            .append($('<a>').text(obj.name))
+                            .appendTo($ul);
+
+                    }
+                    let $ban_ul = $('#banner_ul');
+                    for (let obj of result.img) {
+                        $('<img>').attr('src', img_url + obj)
+                            .appendTo($('<a>').appendTo($('<li>').appendTo($ban_ul)))
+                    }
+                    $('#banner').unslider({
+                        dots: true
+                    })
+                }
+            })
+        });
+        $(function () {
+            let url = 'http://127.0.0.1:8000/home/infor/';
+            let img_url = 'http://127.0.0.1:8000/static/img/productSingle_middle/';
+            $.get(url, function (result) {
+                if (result.static === 200 && result.data.length > 0) {
+                    let $div = $('#center');
+                    for (let obj of result.data) {
+                        let $ul = $('<ul>').appendTo($div);
+                        $('<h2>').text(obj.name).appendTo($ul);
+                        for (let obj1 of obj.subs) {
+                            $('<a>').attr('href', 'http://127.0.0.1:8000/static/add_shop.html?pid=' + obj1.id)
+                                .append($('<img>').attr('src', img_url + obj1.img[0].id + '.jpg'))
+                                .appendTo($('<li>').appendTo($ul));
+                            $('<a>').attr('href', 'http://127.0.0.1:8000/static/add_shop.html?pid=' + obj1.id).text(obj1.name).appendTo($('<li>').appendTo($ul))
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+    <style type="text/css">
+        /**
+       轮播图容样式
+       */
+        #banner {
+            background: #e7eceb;
+            border: 38px solid #e7eceb;
+        }
+
+        #banner ul {
+            height: 800px;
+            position: relative;
+            width: 400%;
+        }
+
+        #banner ul li {
+            float: left;
+            overflow: hidden;
+        }
+
+        #banner .dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+        }
+
+        #banner .dots li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+            text-indent: -999em;
+            border: 2px solid #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            opacity: .4;
+            -webkit-transition: background .5s, opacity .5s;
+            -moz-transition: background .5s, opacity .5s;
+            transition: background .5s, opacity .5s;
+        }
+
+        #banner .dots li.active {
+            background: #000000;
+            opacity: 1;
+        }
+
+        #banner .arrow {
+            position: absolute;
+            top: 200px;
+
+        }
+
+
+    </style>
+    <style type="text/css">
+        /**主内容样式*/
+
+    </style>
+</head>
+<body>
+<h1>天猫首页</h1>
+<div id="parent">
+    <div id="head_cate" class="clear">
+        <div class="clear" id="cate">
+            <ul id="out_shop" class="clear">
+
+            </ul>
+
+            <ul id="init_shop" class="clear">
+
+            </ul>
+        </div>
+        <div id="banner">
+            <ul id="banner_ul">
+
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="center">
+        <ul>
+
+
+        </ul>
+
+
+    </div>
+    <div id="misses">
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

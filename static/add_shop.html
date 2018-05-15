@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script>
+        $(function () {
+            let url = 'http://127.0.0.1:8000/home/add/' + window.location.search;
+            $.get(url, function (result) {
+                if (result.data.length > 0 && result.static === 200) {
+
+
+                }
+            })
+
+        })
+    </script>
+    <style type="text/css">
+        #button>li{
+            float: left;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="top_img">
+
+    </div>
+    <div id="shop_big_img">
+
+    </div>
+    <div id="shop_small_img">
+
+    </div>
+    <div id="shop_message">
+        <span></span>
+        <ul id="infor">
+            <li><img src="#"><span>全天猫商品通用</span></li>
+            <li></li>
+        </ul>
+        <ul id="shop_num">
+
+        </ul>
+
+        <ul>
+            <li>服务承诺</li>
+            <li>正品保证</li>
+            <li>技术退款</li>
+            <li>赠运费险</li>
+            <li>七天无理理由退换</li>
+        </ul>
+        <ul id="button">
+            <li><button>立即购买</button></li>
+            <li><button id="add_shops">加入购物车</button></li>
+        </ul>
+
+    </div>
+
+
+</div>
+</body>
+</html>
